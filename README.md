@@ -1,148 +1,175 @@
+# 📊 Smart Health Tracker - Sleep Well-Rested Prediction 🛌
 
-📊 Smart Health Tracker - Sleep Well-Rested Prediction
-------------------------------------------------------------------
-This project uses Python, scikit-learn, PyTorch, and visualization tools to predict whether a user is well-rested based on various health features from a CSV dataset.
+Welcome to the **Smart Health Tracker** project! This tool is designed to predict whether a user is well-rested based on various health metrics collected from a smart health tracking device. The project combines classical machine learning and modern neural networks to analyze your health data and deliver meaningful insights about your sleep quality.
 
-📂 Dataset
-----------------------------------------------------------------
-Input: smart_health_tracker_data.csv
+***
 
-Contains features like:
+## 🌟 Project Overview
 
-Age, Daily_Steps, Resting_Heart_Rate, Active_Heart_Rate
+Good sleep is essential for health and productivity. This project evaluates if a person is "well-rested" by predicting sleep quality using daily health features such as heart rate, activity level, and stress. The prediction classifies users into:
 
-Hours_of_Sleep, Daily_Calorie_Intake, Sleep_Quality
+- **Well_Rested (1):** Person has slept 7 or more hours.
+- **Not Well_Rested (0):** Person has slept fewer than 7 hours.
 
-Stress_Level, Daily_Activity_Type, Gender, Mood
+To accomplish this, the project implements three predictive models:
 
-Target:
---------------------------------------------------------
+1. **Logistic Regression:** A traditional statistical model effective for binary classification.
+2. **Neural Network:** A deeper learning approach with one hidden layer, capturing complex patterns.
+3. **Perceptron:** A simple neural network model for baseline performance.
 
-Well_Rested = 1 if Hours_of_Sleep >= 7, else 0
+Each model offers detailed metrics and visualizations to assess prediction accuracy.
 
-✅ What’s Implemented?
---------------------------------------------------------
-This repo has 3 parts:
-1️⃣ Logistic Regression with scikit-learn
-2️⃣ Neural Network (NNet) with PyTorch
-3️⃣ Perceptron model with PyTorch
+***
 
-⚙️ How It Works
---------------------------------------------------------
-1️⃣ Logistic Regression
-Libraries: pandas, scikit-learn, matplotlib, seaborn
+## ⚙️ Installation Instructions (Step-by-Step)
 
-Steps:
+1. **Clone the repository**
 
-Load data and fill missing values (mean, median, mode)
+   Open your command line interface (CLI) and run:
 
-Feature selection: ['Sleep_Quality','Stress_Level','Daily_Calorie_Intake','Active_Heart_Rate','Resting_Heart_Rate']
+   ```
+   git clone https://github.com/Ashleesh/30-days-Neural-Network.git
+   cd 30-days-Neural-Network
+   ```
 
-Data scaling with StandardScaler
+2. **Check Python Version**
 
-Train-test split (80/20)
+   This project supports **Python 3.8 or later**. Confirm you have the right version by running:
 
-Train LogisticRegression with class_weight='balanced'
+   ```
+  CMD : python --version
+   ```
 
-Evaluate using:
+   If you need to install or upgrade Python, download it from the official Python website.
 
-Accuracy, Precision, Recall, F1, ROC AUC
+3. **Install Required Libraries**
 
-Confusion Matrix
+   To run the models and visualization code, install the necessary Python packages:
 
-ROC Curve
+   ```
+  CMD :   pip install pandas scikit-learn matplotlib seaborn torch
+   ```
 
-Probability Distribution
+   - `pandas` and `scikit-learn` for data handling and modeling.
+   - `matplotlib` and `seaborn` for plotting graphs.
+   - `torch` for building and training neural networks.
 
-2️⃣ Neural Network (NNet) with PyTorch
-Libraries: pandas, PyTorch, scikit-learn, matplotlib, seaborn
+***
 
-Steps:
+## 🧰 Project Dependencies & Environment
 
-Load and clean data
+- The project is developed and tested on Python 3.8+.
+- For GPU acceleration on neural network training, install the appropriate CUDA-enabled `torch` version from PyTorch's website depending on your system.
+- All scripts are compatible with CPU-only execution but training may be slower.
+- If you run into package issues, consider using a virtual environment to isolate dependencies.
 
-Feature selection: ['Resting_Heart_Rate','Sleep_Quality','Stress_Level']
+***
 
-Scale and split data
+## 📂 Dataset Details
 
-Convert data to PyTorch tensors
+The project uses a CSV file named `smart_health_tracker_data.csv`. This file should be placed in the project root directory beside the scripts.
 
-Define custom NNet:
+### Dataset Columns:
 
-3 -> 32 -> 16 -> 1 layers with ReLU and Sigmoid
+- **Age:** User’s age in years.
+- **Daily_Steps:** Number of steps taken daily.
+- **Resting_Heart_Rate:** Beats per minute (bpm) when at rest.
+- **Active_Heart_Rate:** Beats per minute during activity.
+- **Hours_of_Sleep:** Total sleep hours (key feature).
+- **Daily_Calorie_Intake:** Calories consumed per day.
+- **Sleep_Quality:** Subjective or device-measured sleep rating.
+- **Stress_Level:** User’s reported stress level.
+- **Daily_Activity_Type:** Type of daily physical activity (e.g.walking, running).
+- **Gender:** User’s gender.
+- **Mood:** User’s mood during the day.
 
-Train with BCELoss and Adam
+The target variable is derived as:
 
-Evaluate with:
+- **Well_Rested = 1:** If Hours_of_Sleep ≥ 7
+- **Well_Rested = 0:** Otherwise
 
-Accuracy, Precision, Recall, F1, ROC AUC
+***
 
-Confusion Matrix
+## 🚀 How the Project Works - In Depth
 
-ROC Curve
+1. **Data Loading & Preprocessing**
 
-Probability Distribution
+   - The data is automatically loaded from the CSV file.
+   - Missing numerical values are imputed using statistical methods like mean or median.
+   - Missing categorical values use the most common category (mode).
+   - Categorical variables are encoded to numerical formats as needed (e.g., one-hot encoding for Logistic Regression).
+  
+2. **Feature Selection**
 
-3️⃣ Perceptron with PyTorch
-Libraries: pandas, PyTorch, scikit-learn, matplotlib, seaborn
+   Each model uses a tailored set of input features to optimize prediction accuracy based on the algorithm’s strengths.
 
-Steps:
+3. **Model Training**
 
-Same preprocessing as Logistic Regression
+   - **Logistic Regression:** Uses scikit-learn’s balanced class weights to handle imbalanced data.
+   - **Neural Network:** PyTorch-based with:
+     - One hidden layer
+     - ReLU activation function for learning non-linear patterns
+     - Sigmoid output layer for binary classification
+     - Binary cross-entropy loss function to optimize the model.
+   - **Perceptron:** Simple neural network layer with sigmoid activation and the same loss function.
+   
+4. **Model Evaluation**
 
-Feature selection: same 5 features
+   After training, the models calculate:
 
-Convert to tensors
+   - Accuracy: How often the model predicts correctly.
+   - Precision, Recall, and F1-Score: For understanding model performance on each class.
+   - ROC-AUC: Measures ability to distinguish between classes.
+   - Confusion Matrix: Shows correct and incorrect classifications visually.
+   - Visual plots are generated automatically for easy interpretation.
 
-Define simple Perceptron:
+***
 
-5 -> 1 linear layer + Sigmoid
+## 🎛️ What to Expect When Running the Models
 
-Train with BCELoss and Adam
+When you execute each model script, expect:
 
-Evaluate with:
+- Output metrics printed to the console describing model performance.
+- Graphs such as:
+  - Confusion Matrix plot showing true/false positives and negatives.
+  - ROC curve plot depicting sensitivity versus false alarm rate.
+  - Probability distribution histograms illustrating model confidence.
 
-Accuracy, Precision, Recall, F1, ROC AUC
+These help you analyze strengths and weaknesses of each approach.
 
-Confusion Matrix
+***
 
-ROC Curve
+## 💡 How to Run the Project
 
-Probability Distribution
+In your terminal or command prompt, run one of the following commands to train and test each model:
 
-📈 Plots & Evaluation
------------------------------------------------------------
-Each model outputs:
+- For Logistic Regression:
 
-Confusion Matrix: Visual classification performance
+  ```
+  python LogisticRegression.py
+  ```
 
-ROC Curve: Model’s trade-off between TPR and FPR
+- For Neural Network:
 
-Probability Histogram: How confident the model is
+  ```
+  python Neural.py
+  ```
 
-🚀 How to Run
----------------------------------------------------------------
-Clone this repo:
+- For Perceptron:
 
-bash
-Copy
-Edit
-git clone (https://github.com/Apex-ace/Health_NN)
-cd YOUR_REPO_NAME
-Install dependencies:
+  ```
+  python Perceptro.py
+  ```
 
-bash
-Copy
-Edit
-pip install pandas scikit-learn matplotlib seaborn torch
-Add your smart_health_tracker_data.csv to the project folder.
+Each script loads the dataset, processes the data, trains the model, evaluates it, and then generates performance reports and visuals automatically.
 
-Run each script:
+***
 
-🧑‍💻 Author
---------------------------------------------------------------------
-JIT ACM Student Chapter
+## 🔧 Additional Notes & Tips
 
-📜 License
----------------------------------------------------------------------
-This project is open source and free to use for educational purposes
+- Make sure the data file name is exactly `smart_health_tracker_data.csv` and located in the same folder as scripts.
+- GPU support in PyTorch is optional but improves speed for bigger datasets.
+- Feel free to experiment with hyperparameters (like learning rate and training epochs) inside the Python scripts to improve model accuracy.
+- The project can be extended to include new features or models for further experimentation.
+- If you encounter any errors related to package import or versions, consider reinstalling packages or using a virtual environment.
+
